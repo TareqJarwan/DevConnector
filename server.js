@@ -28,8 +28,15 @@ mongoose.connect(db, {
 // Passport middleware
 app.use(passport.initialize());
 
-// Password Config
+// Passport Config
 require('./config/passport')(passport);
+passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  });
 
 // Use Routes
 app.use('/api/users', users);
