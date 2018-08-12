@@ -3,16 +3,15 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-// Load User Model
+// Load Models
 const User = require('../../models/User');
-
-// Load Profile Model
 const Profile = require('../../models/Profile');
 
 // Load Input Validation
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require('../../validation/education');
+
 // @route   GET api/profile/test
 // @desc    Tests profile route
 // @access  Public
@@ -25,9 +24,7 @@ router.get('/test', (req, res) => {
 // @route   GET api/profile
 // @desc    Get current user profile
 // @access  Private
-router.get('/', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.get('/', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     const errors = {};
     Profile.findOne({
             user: req.user.id
@@ -107,9 +104,7 @@ router.get('/all', (req, res) => {
 // @route   POST api/profile
 // @desc    Create or Edit user profile
 // @access  Private
-router.post('/', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.post('/', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     const {
         errors,
         isValid
@@ -188,9 +183,7 @@ router.post('/', passport.authenticate('jwt', {
 // @route   POST api/profile/experience
 // @desc    Add experience to profile
 // @access  Private
-router.post('/experience', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.post('/experience', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     const {
         errors,
         isValid
@@ -228,9 +221,7 @@ router.post('/experience', passport.authenticate('jwt', {
 // @route   POST api/profile/education
 // @desc    Add education to profile
 // @access  Private
-router.post('/education', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.post('/education', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     const {
         errors,
         isValid
@@ -267,9 +258,7 @@ router.post('/education', passport.authenticate('jwt', {
 // @route   Delete api/profile/experience/:exp_id
 // @desc    delete experience to profile
 // @access  Private
-router.delete('/experience/:exp_id', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.delete('/experience/:exp_id', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     Profile.findOne({
         user: req.user.id
     }).then(profile => {
@@ -292,10 +281,8 @@ router.delete('/experience/:exp_id', passport.authenticate('jwt', {
 // @route   Delete api/profile/education/:edu_id
 // @desc    delete education to profile
 // @access  Private
-router.delete('/education/:edu_id', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
-    Profile.findOne({
+router.delete('/education/:edu_id', passport.authenticate('jwt', {seesion: false}), (req, res) =>{
+     Profile.findOne({
         user: req.user.id
     }).then(profile => {
         // Get romove index
@@ -317,9 +304,7 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', {
 // @route   Delete api/profile
 // @desc    delete user and profile
 // @access  Private
-router.delete('/', passport.authenticate('jwt', {
-    seesion: false
-}), (req, res) => {
+router.delete('/', passport.authenticate('jwt', {seesion: false}), (req, res) => {
     Profile.findOneAndRemove({
         user: req.user.id
     }).then(() => {
@@ -331,9 +316,5 @@ router.delete('/', passport.authenticate('jwt', {
             }));
     });
 });
-
-
-
-
 
 module.exports = router;
