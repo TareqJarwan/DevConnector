@@ -11,7 +11,13 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import NotFound from './components/not-found/NotFound';
 import Dashboard from './components/dashboard/Dashboard';
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
+
+
+
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import AddExperience from './components/add-credentials/AddExperience';
@@ -55,7 +61,9 @@ class App extends Component {
                         <div className="container">
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
-
+                            <Route exact path="/profiles" component={Profiles}/>
+                            <Route exact path="/profile/:handle" component={Profile}/>
+                            <Route exact path="/not-found" component={NotFound}/>
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard}/>
                             </Switch>
